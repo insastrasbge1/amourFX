@@ -17,6 +17,11 @@ public class Role {
         this.id = id;
         this.nrole = nrole;
     }
+    
+    @Override
+    public String toString() {
+        return this.nrole;
+    }
 
     /**
      * @return the id

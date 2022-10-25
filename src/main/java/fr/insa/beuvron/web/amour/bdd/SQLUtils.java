@@ -76,7 +76,7 @@ public class SQLUtils {
      * @return 
      * @throws java.lang.Exception 
      */
-    public static String formatResultSetAsHTMLTable(ResultSet rs) throws Exception {
+    public static String formatResultSetAsHTMLTable(ResultSet rs) throws SQLException {
         StringBuilder res = new StringBuilder();
         // il est également possible d'avoir des information sur la 'structure'
         // du Resultset : nombre de colonnes, nom des colonnes ...
