@@ -34,7 +34,7 @@ public class Main extends Application {
     public void start(Stage stage) {
         Scene sc = new Scene(new VuePrincipale());
 //        Scene sc = new Scene(new TestFx());
-        stage.setWidth(800);
+        stage.setWidth(1000);
         stage.setHeight(600);
         stage.setScene(sc);
         stage.setTitle("AmourFx");

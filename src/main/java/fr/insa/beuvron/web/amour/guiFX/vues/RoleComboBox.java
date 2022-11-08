@@ -40,4 +40,8 @@ public class RoleComboBox extends ComboBox<Role> {
         this.getSelectionModel().select(1);
     }
 
+    public Role selectedIdRole() {
+        return this.getSelectionModel().getSelectedItem();
+    }
+
 }

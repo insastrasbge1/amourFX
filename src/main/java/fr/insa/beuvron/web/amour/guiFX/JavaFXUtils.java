@@ -27,8 +27,12 @@ import javafx.scene.web.WebView;
 public class JavaFXUtils {
 
     public static void addSimpleBorder(Region c) {
-        c.setBorder(new Border(new BorderStroke(Color.BLACK,
-                BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+        addSimpleBorder(c, Color.BLACK, BorderWidths.DEFAULT.getTop());
+    }
+    
+    public static void addSimpleBorder(Region c,Color couleur,double epaisseur) {
+        c.setBorder(new Border(new BorderStroke(couleur,
+                BorderStrokeStyle.SOLID, CornerRadii.EMPTY,new BorderWidths(epaisseur))));
     }
 
     public static WebView preparedStatementInWebView(PreparedStatement pst) {
@@ -42,11 +46,24 @@ public class JavaFXUtils {
         return view;
     }
 
+    public static void showErrorInAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Erreur");
+        alert.setHeaderText(message);
+        alert.showAndWait();
+    }
     public static void showErrorInAlert(String titre, String message, String detail) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(titre);
         alert.setHeaderText(message);
         alert.setContentText(detail);
+        alert.showAndWait();
+
+    }
+    public static void showInfoInAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Info");
+        alert.setHeaderText(message);
         alert.showAndWait();
 
     }

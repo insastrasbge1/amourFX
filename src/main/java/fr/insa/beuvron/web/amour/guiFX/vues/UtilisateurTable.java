@@ -9,6 +9,7 @@ import fr.insa.beuvron.web.amour.model.Utilisateur;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -22,8 +23,13 @@ public class UtilisateurTable extends TableView {
     
     private VuePrincipale main;
     
+    private ObservableList<Utilisateur> utilisateurs;
+    
     public UtilisateurTable(VuePrincipale main,List<Utilisateur> utilisateurs) {
         this.main = main;
+        this.utilisateurs = FXCollections.observableArrayList(utilisateurs);
+        
+        this.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         
         TableColumn<Utilisateur,String> cNom = 
                 new TableColumn<>("nom");
@@ -36,8 +42,25 @@ public class UtilisateurTable extends TableView {
         
         cNom.setCellValueFactory(new PropertyValueFactory<>("nom"));
         cRole.setCellValueFactory(new PropertyValueFactory<>("nomRole"));
-        ObservableList<Utilisateur> olu = FXCollections.observableArrayList(utilisateurs);
-        this.setItems(olu);
+        this.setItems(this.utilisateurs);
     }
+
+    public List<Utilisateur> getUtilisateurs() {
+        return this.utilisateurs;
+    }
+    
+    public List<Utilisateur> getSelectedUsers() {
+        return this.getSelectionModel().getSelectedItems();
+    }
+    
+    public void addUsers(List<Utilisateur> users) {
+        this.getItems().addAll(users);
+    }
+    
+    public void removeUsers(List<Utilisateur> users) {
+        this.getItems().removeAll(users);
+    }
+    
+    
     
 }

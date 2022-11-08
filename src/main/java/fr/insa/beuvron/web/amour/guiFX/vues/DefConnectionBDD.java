@@ -20,7 +20,7 @@ import javafx.scene.layout.GridPane;
  *
  * @author francois
  */
-public class ConnectionBDDForm extends GridPane{
+public class DefConnectionBDD extends GridPane{
     
     private VuePrincipale main;
     
@@ -31,7 +31,7 @@ public class ConnectionBDDForm extends GridPane{
     private PasswordField pfPass;
     private Button bConnect;
     
-    public ConnectionBDDForm(VuePrincipale main) {
+    public DefConnectionBDD(VuePrincipale main) {
         this.main = main;
         this.add(new Label("connection à la base de donnée"), 0, 0,2,1);
         int lig = 1;
@@ -52,7 +52,6 @@ public class ConnectionBDDForm extends GridPane{
         this.add(this.tfUser, 1, lig);
         lig++;
         this.pfPass = new PasswordField();
-        this.pfPass.setText("pass");
         this.add(new Label("password"), 0, lig);
         this.add(this.pfPass, 1, lig);
         lig++;
@@ -68,7 +67,7 @@ public class ConnectionBDDForm extends GridPane{
                 this.main.getSessionInfo().setConBdD(con);
                 // TODO after connect
                 this.main.setEntete(new EnteteInitialLogin(this.main));
-                this.main.setMainContent(new Label("please login"));
+                this.main.setMainContent(new BienvenueMainVue(main));
                 
            }
             catch (NumberFormatException ex) {

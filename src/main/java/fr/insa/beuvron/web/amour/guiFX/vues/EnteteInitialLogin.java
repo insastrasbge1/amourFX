@@ -28,69 +28,85 @@ import javafx.scene.layout.HBox;
 public class EnteteInitialLogin extends HBox {
 
     private VuePrincipale main;
-
-    private TextField tfNom;
-    private PasswordField pfPass;
+    
+    private Button vbLogin;
+    private Button vbNouvelUtilisateur;
 
     public EnteteInitialLogin(VuePrincipale main) {
-        this.main = main;
 
-        this.getChildren().add(new Label("nom : "));
-        this.tfNom = new TextField();
-        this.tfNom.setPromptText("nom");
-        this.getChildren().add(this.tfNom);
-        this.getChildren().add(new Label("pass : "));
-        this.pfPass = new PasswordField();
-        this.pfPass.setPromptText("pass");
-        this.getChildren().add(this.pfPass);
-        Button bLogin = new Button("Login");
-        bLogin.setOnAction((t) -> {
-            doLogin();
+                this.main = main;
+        
+        this.vbLogin = new Button("Login");
+        this.vbLogin.setOnAction((event) -> {
+            this.main.setMainContent(new LoginForm(this.main));
         });
-        this.getChildren().add(bLogin);
-        //TODO debug
-        this.getChildren().add(new RoleComboBox(main));
-        Button bUsers = new Button("Utilisateurs");
-        bUsers.setOnAction((t) -> {
-            List<Utilisateur> allUsers = new ArrayList<>();
-            Connection con = this.main.getSessionInfo().getConBdD();
-            if (con != null) {
-                try {
-                    allUsers = GestionBdD.tousLesUtilisateurs(con);
-                } catch (SQLException ex) {
-                    JavaFXUtils.showErrorInAlert("Problem BDD",
-                            "impossible d'avoir la liste des utilisateurs",
-                            ex.getLocalizedMessage());
-                    // je ne fais rien, la table reste vide
-                }
-            } else {
-                JavaFXUtils.showErrorInAlert("Problem BDD",
-                        "pas de connection",
-                        "");
-
-            }
-            this.main.setMainContent(new UtilisateurTable(main, allUsers));
+        this.vbNouvelUtilisateur = new Button("Nouvel utilisateur");
+        this.vbNouvelUtilisateur.setOnAction((t) -> {
+            this.main.setMainContent(new NouvelUtilisateur(this.main));
         });
-        this.getChildren().add(bUsers);
+        this.getChildren().addAll(this.vbLogin,this.vbNouvelUtilisateur);
     }
-
-    public void doLogin() {
-        String nom = this.tfNom.getText();
-        String pass = this.pfPass.getText();
-        try {
-            Connection con = this.main.getSessionInfo().getConBdD();
-            Optional<Utilisateur> user = GestionBdD.login(con, nom, pass);
-            if (user.isEmpty()) {
-                JavaFXUtils.showErrorInAlert("Error", "Utilisateur ou pass invalide", "");
-            } else {
-                this.main.getSessionInfo().setCurUser(user);
-                this.main.setMainContent(new Label("Login OK"));
-//                this.main.setEntete(new EnteteAfterLogin(this.main));
-//                this.main.setMainContent(new MainAfterLogin(this.main));
-            }
-        } catch (SQLException ex) {
-            JavaFXUtils.showErrorInAlert("Error BdD", "Problème interne : ", ex.getLocalizedMessage());
-        }
-    }
-
 }
+
+//
+//        this.main = main;
+//
+//        this.getChildren().add(new Label("nom : "));
+//        this.tfNom = new TextField();
+//        this.tfNom.setPromptText("nom");
+//        this.getChildren().add(this.tfNom);
+//        this.getChildren().add(new Label("pass : "));
+//        this.pfPass = new PasswordField();
+//        this.pfPass.setPromptText("pass");
+//        this.getChildren().add(this.pfPass);
+//        Button bLogin = new Button("Login");
+//        bLogin.setOnAction((t) -> {
+//            doLogin();
+//        });
+//        this.getChildren().add(bLogin);
+//        //TODO debug
+//        this.getChildren().add(new RoleComboBox(main));
+//        Button bUsers = new Button("Utilisateurs");
+//        bUsers.setOnAction((t) -> {
+//            List<Utilisateur> allUsers = new ArrayList<>();
+//            Connection con = this.main.getSessionInfo().getConBdD();
+//            if (con != null) {
+//                try {
+//                    allUsers = GestionBdD.tousLesUtilisateurs(con);
+//                } catch (SQLException ex) {
+//                    JavaFXUtils.showErrorInAlert("Problem BDD",
+//                            "impossible d'avoir la liste des utilisateurs",
+//                            ex.getLocalizedMessage());
+//                    // je ne fais rien, la table reste vide
+//                }
+//            } else {
+//                JavaFXUtils.showErrorInAlert("Problem BDD",
+//                        "pas de connection",
+//                        "");
+//
+//            }
+//            this.main.setMainContent(new UtilisateurTable(main, allUsers));
+//        });
+//        this.getChildren().add(bUsers);
+//    }
+//
+//    public void doLogin() {
+//        String nom = this.tfNom.getText();
+//        String pass = this.pfPass.getText();
+//        try {
+//            Connection con = this.main.getSessionInfo().getConBdD();
+//            Optional<Utilisateur> user = GestionBdD.login(con, nom, pass);
+//            if (user.isEmpty()) {
+//                JavaFXUtils.showErrorInAlert("Error", "Utilisateur ou pass invalide", "");
+//            } else {
+//                this.main.getSessionInfo().setCurUser(user);
+//                this.main.setMainContent(new Label("Login OK"));
+////                this.main.setEntete(new EnteteAfterLogin(this.main));
+////                this.main.setMainContent(new MainAfterLogin(this.main));
+//            }
+//        } catch (SQLException ex) {
+//            JavaFXUtils.showErrorInAlert("Error BdD", "Problème interne : ", ex.getLocalizedMessage());
+//        }
+//    }
+//
+//}
