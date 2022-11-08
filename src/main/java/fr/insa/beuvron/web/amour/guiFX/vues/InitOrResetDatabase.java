@@ -35,19 +35,20 @@ import javafx.scene.paint.Color;
 public class InitOrResetDatabase extends VBox {
 
     private VuePrincipale main;
-    
+
     private Button vbInitDatabase;
 
     public InitOrResetDatabase(VuePrincipale main) {
         this.main = main;
 
-        TextArea note = new TextArea("Note : normalement ce panneau ne devrait pas faire partie \n"
+        TextArea note = new TextArea("Note : normalement le bouton ci-dessous ne devrait pas faire partie \n"
                 + "de l'interface web : la création de la base de donnée se fait une fois pour \n"
                 + "toute par l'administrateur système, en général hors de l'interface web\n");
         note.setEditable(false);
+        note.setStyle("-fx-text-fill: red;");
+
         this.getChildren().add(note);
-        JavaFXUtils.addSimpleBorder(note,Color.RED,2);
-        
+
         this.vbInitDatabase = new Button("Initialisation ou ré-initialisation de la base de donnée");
         this.vbInitDatabase.setOnAction((event) -> {
             Connection con = this.main.getSessionInfo().getConBdD();
@@ -55,10 +56,11 @@ public class InitOrResetDatabase extends VBox {
                 GestionBdD.recreeTout(con);
                 JavaFXUtils.showInfoInAlert("OK : BdD (ré)-initialisée");
             } catch (SQLException ex) {
-                JavaFXUtils.showInfoInAlert("Problème : "+ex.getLocalizedMessage());
+                JavaFXUtils.showInfoInAlert("Problème : " + ex.getLocalizedMessage());
             }
         });
         this.getChildren().add(this.vbInitDatabase);
+        JavaFXUtils.addSimpleBorder(this, Color.RED, 2);
 
     }
 }
