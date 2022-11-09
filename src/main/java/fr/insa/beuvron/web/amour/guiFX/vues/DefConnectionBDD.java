@@ -24,6 +24,7 @@ public class DefConnectionBDD extends GridPane{
     
     private VuePrincipale main;
     
+    private SelectSGBDCombo sgbd;
     private TextField tfHost;
     private TextField tfPort;
     private TextField tfDatabase;
@@ -35,6 +36,10 @@ public class DefConnectionBDD extends GridPane{
         this.main = main;
         this.add(new Label("connection à la base de donnée"), 0, 0,2,1);
         int lig = 1;
+        this.sgbd = new SelectSGBDCombo();
+        this.add(new Label("sgbd"), 0, lig);
+        this.add(this.sgbd, 1, lig);
+        lig++;
         this.tfHost = new TextField("localhost");
         this.add(new Label("host"), 0, lig);
         this.add(this.tfHost, 1, lig);
@@ -59,11 +64,20 @@ public class DefConnectionBDD extends GridPane{
         this.bConnect.setOnAction((t) -> {
             try {
                 int port = Integer.parseInt(this.tfPort.getText());
-                Connection con = GestionBdD.connectGeneralPostGres(this.tfHost.getText(),
+                Connection con;
+                if (this.sgbd.selectedSGBD() == GestionBdD.PostgresqlSGBD) {
+                con = GestionBdD.connectGeneralPostGres(this.tfHost.getText(),
                         port,
                         this.tfDatabase.getText(),
                         this.tfUser.getText(),
                         this.pfPass.getText());
+                } else {
+                con = GestionBdD.connectGeneralMySQL(this.tfHost.getText(),
+                        port,
+                        this.tfDatabase.getText(),
+                        this.tfUser.getText(),
+                        this.pfPass.getText());   
+                }
                 this.main.getSessionInfo().setConBdD(con);
                 // TODO after connect
                 this.main.setEntete(new EnteteInitialLogin(this.main));
