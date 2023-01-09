@@ -19,7 +19,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
  * voir https://devstory.net/11079/javafx-tableview
  * @author francois
  */
-public class UtilisateurTable extends TableView {
+public class UtilisateurTable extends TableView<Utilisateur> {
     
     private VuePrincipale main;
     

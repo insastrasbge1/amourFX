@@ -68,10 +68,29 @@ public class GestionBdD {
     //
     // Note : cette classe pourrait être un enum, mais comme cette construction java n'a pas
     //   était vue en cours, nous en faisons une classe "normale"
+    /**
+     * définie certaines constructions propres aux différents SGBD
+     */
     public static class SGBD {
 
+        /** informatif : le nom courant du SGDBD*/
         private String name;
+        
+        /** la syntaxe SQL pour indiquer qu'une clé primaire doit être générée
+         * par le sgbd n'est pas toujours la même.
+         * Cet attribut indique la syntaxe à insérer dans la définition de la
+         * colonne de la clé primaire d'une table pour qu'elle soit automatiquement$
+         * générée par le SGBD
+         */
         private String autoGenerateKeys;
+        
+        /**
+         * Pour toutes les valeurs textuelles, le codage par défaut devrait être
+         * unicode.
+         * Ce n'est malheureusement pas pas le cas pour tous les SGBD.
+         * Défini la commande SQL permettant de fixer unicode comme le codage par défaut.
+         * null si aucune commande nécessaire (unicode est le codage par défaut)
+         */
         private String defineDefautCharsetToUTF8;
 
         public SGBD(String name,String autoGenerateKeys, String defineDefautCharsetToUTF8) {
@@ -105,10 +124,27 @@ public class GestionBdD {
 
     public static final SGBD MySQLSGBD = new SGBD("MySQL","AUTO_INCREMENT",
             "ALTER DATABASE CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci");
+    
     public static final SGBD PostgresqlSGBD = new SGBD("PostgresQL","generated always as identity");
 
+    /**
+     * Cette variable globale doit être fixée lors de la connection pour indiquer
+     * le SGBD particulié utilisé.
+     */
     public static SGBD curSGBD = PostgresqlSGBD;
 
+    /**
+     * connection à une base de donnée gérée par le SGDB PostgresQL.
+     * @param host : adresse internet du serveur gérant la base de donnée. 
+     * @param port : port sur lequel le SGBD attend les requètes
+     * @param database : un SGBD peut "servir" plusieurs bases de données. Il faut donc 
+     * préciser la base de données à laquelle on souhaite accéder.
+     * @param user : le SGBD vérifie les droits d'accès par le couple (utilisateur,motDePasse)
+     * @param pass : pour vérifier que l'utilisateur a effectivement droit d'accéder à la BdD
+     * @return
+     * @throws ClassNotFoundException
+     * @throws SQLException 
+     */
     public static Connection connectGeneralPostGres(String host,
             int port, String database,
             String user, String pass)
@@ -123,11 +159,29 @@ public class GestionBdD {
         return con;
     }
 
+    /**
+     * une petite méthode utilitaire pour le cas particulier d'un SGBD Postgres local.
+     * @return
+     * @throws ClassNotFoundException
+     * @throws SQLException 
+     */
     public static Connection defautConnect()
             throws ClassNotFoundException, SQLException {
         return connectGeneralPostGres("localhost", 5439, "postgres", "postgres", "pass");
     }
 
+    /**
+     * connection à une base de donnée gérée par le SGDB MySQL.
+     * @param host : adresse internet du serveur gérant la base de donnée. 
+     * @param port : port sur lequel le SGBD attend les requètes
+     * @param database : un SGBD peut "servir" plusieurs bases de données. Il faut donc 
+     * préciser la base de données à laquelle on souhaite accéder.
+     * @param user : le SGBD vérifie les droits d'accès par le couple (utilisateur,motDePasse)
+     * @param pass : pour vérifier que l'utilisateur a effectivement droit d'accéder à la BdD
+     * @return
+     * @throws ClassNotFoundException
+     * @throws SQLException 
+     */
     public static Connection connectGeneralMySQL(String host,
             int port, String database,
             String user, String pass)
@@ -142,6 +196,16 @@ public class GestionBdD {
         return con;
     }
 
+   /**
+     * une petite méthode utilitaire pour le cas particulier d'un SGBD MySQL géré par freesqldatabase.com.
+     * Les données dans cette méthode doivent être modifiée en fonction de votre propre base de 
+     * donnée MySQL. 
+     * En particulier, vous comprendrez aisément que je ne peux pas donner explicitement mon mot de passe
+     * personnel. C'est pourquoi le pass reste un paramètre.
+     * @return
+     * @throws ClassNotFoundException
+     * @throws SQLException 
+     */
     public static Connection connectToFreeDatabaseMySQL(String pass)
             throws ClassNotFoundException, SQLException {
         String host = "sql7.freesqldatabase.com";
@@ -151,6 +215,7 @@ public class GestionBdD {
         return connectGeneralMySQL(host, port, database, user, pass);
     }
 
+    
     public static void creeSchema(Connection con)
             throws SQLException {
         // je veux que le schema soit entierement créé ou pas du tout
