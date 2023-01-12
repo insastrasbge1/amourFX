@@ -15,11 +15,13 @@ import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 
 /**
  *
@@ -28,15 +30,19 @@ import javafx.scene.layout.HBox;
 public class EnteteInitialLogin extends HBox {
 
     private VuePrincipale main;
-    
+
     private Button vbLogin;
     private Button vbNouvelUtilisateur;
 
     public EnteteInitialLogin(VuePrincipale main) {
 
-                this.main = main;
-        
+        this.main = main;
+        //JavaFXUtils.addSimpleBorder(this, Color.GREEN, 2);
+        this.setAlignment(Pos.CENTER);
+
         this.vbLogin = new Button("Login");
+        this.vbLogin.setStyle("-fx-font-size : 18");
+        
         this.vbLogin.setOnAction((event) -> {
             this.main.setMainContent(new LoginForm(this.main));
         });
@@ -44,7 +50,7 @@ public class EnteteInitialLogin extends HBox {
         this.vbNouvelUtilisateur.setOnAction((t) -> {
             this.main.setMainContent(new NouvelUtilisateur(this.main));
         });
-        this.getChildren().addAll(this.vbLogin,this.vbNouvelUtilisateur);
+        this.getChildren().addAll(this.vbLogin, this.vbNouvelUtilisateur);
     }
 }
 

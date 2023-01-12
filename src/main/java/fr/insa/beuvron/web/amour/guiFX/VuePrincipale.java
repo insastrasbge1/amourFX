@@ -28,6 +28,7 @@ import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 
 /**
  * vue principale.
@@ -48,6 +49,10 @@ public class VuePrincipale extends BorderPane {
     
     public void setMainContent(Node c) {
         this.mainContent.setContent(c);
+        if (c instanceof Region) {
+            Region rc = (Region) c;
+            rc.prefWidthProperty().bind(this.mainContent.widthProperty());
+        }
     }
     
     public VuePrincipale() {
