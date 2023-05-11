@@ -7,4 +7,11 @@
                 <goal>javafx:run</goal>
             </goals>
         </action>
+        <action>
+            <actionName>CUSTOM-createStandalone</actionName>
+            <displayName>createStandalone</displayName>
+            <goals>
+                <goal>javafx:jlink</goal>
+            </goals>
+        </action>
     </actions>

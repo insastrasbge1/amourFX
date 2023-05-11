@@ -76,8 +76,8 @@
                     <noHeaderFiles>true</noHeaderFiles>
                     <stripDebug>true</stripDebug>
                     <noManPages>true</noManPages>
-                    <mainClass>fr.insa.beuvron.web.amour.guiFX.Main</mainClass>
-                    <launcher>TutoVideoDessin</launcher>
+                    <mainClass>amourFX/fr.insa.beuvron.web.amour.guiFX.AppLauncher</mainClass>
+                    <launcher>amourFX</launcher>
                     <jlinkImageName>amourFX</jlinkImageName>
                     <!-- pour zipper le dossier image
                      je ne le fais pas car je veux créer d'abord un raccourci vers le launcher
@@ -93,6 +93,28 @@
                     </execution>
                 </executions>
             </plugin>        
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.5.0</version>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <mainClass>fr.insa.beuvron.web.amour.guiFX.AppLauncher</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 
         </plugins>
         

@@ -26,6 +26,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.text.StringEscapeUtils;
+//import org.apache.commons.text.StringEscapeUtils;
 
 /**
  *
@@ -105,6 +106,7 @@ public class SQLUtils {
             for (int i = 1; i <= nombreColonnes; i++) {
                 res.append("  <TD " + normalStyle + ">"
                         + StringEscapeUtils.escapeHtml4("" + rs.getObject(i)) + "</TD>\n");
+//                        + "" + rs.getObject(i) + "</TD>\n");
             }
             res.append("</TR>\n");
         }

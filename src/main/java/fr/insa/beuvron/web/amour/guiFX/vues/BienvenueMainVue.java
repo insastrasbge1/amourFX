@@ -38,7 +38,7 @@ public class BienvenueMainVue extends VBox{
     public BienvenueMainVue(VuePrincipale main) {
         this.main = main;
         JavaFXUtils.addSimpleBorder(this, Color.GREEN, 2);
-        this.setAlignment(Pos.CENTER);
+        this.setAlignment(Pos.CENTER); // pour fixer l'alignement des composants inclus dans la VBox
         BigLabel entete = new BigLabel("bienvenu dans ce super programme",30);
         
         this.getChildren().add(entete);
