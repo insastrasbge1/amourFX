@@ -35,7 +35,9 @@ import org.apache.commons.text.StringEscapeUtils;
  */
 public class AppLauncher {
     public static void main(String[] args) {
-        System.out.println(StringEscapeUtils.escapeHtml4("ça être l'été"));
+        // pour tester que le "module automatic" org.apache.commons.text est bien inclu
+        // --> semble ok ==> je commente
+        // System.out.println(StringEscapeUtils.escapeHtml4("ça être l'été"));
         Main.main(args);
     }
     
