@@ -18,8 +18,6 @@ along with CoursBeuvron.  If not, see <http://www.gnu.org/licenses/>.
  */
 package fr.insa.beuvron.web.amour.guiFX;
 
-import org.apache.commons.text.StringEscapeUtils;
-
 /**
  * Un problème de gestion des modules (JDK > 9) empêche l'exécution directe de la classe Main dans un jar contenant toutes les dépendances.
  * Il faudrait utiliser jlink (ou javafx-maven-plugin qui utilise jlink) pour créer une application "standalone", mais ce n'est possible
@@ -30,14 +28,11 @@ import org.apache.commons.text.StringEscapeUtils;
  * 1.10.0 sortie le 28/09/2022 sur maven central n'est toujours pas compatible avec le système des
  * module de java >=9.
  * On utilise donc le bon vieux maven-assembly-plugin, mais il faut que la classe principale 
- * La petite classe utilitaire ci-dessous qui évite ce problème.
+ * soit la petite classe utilitaire ci-dessous qui évite un problème au lancement.
  * @author francois
  */
 public class AppLauncher {
     public static void main(String[] args) {
-        // pour tester que le "module automatic" org.apache.commons.text est bien inclu
-        // --> semble ok ==> je commente
-        // System.out.println(StringEscapeUtils.escapeHtml4("ça être l'été"));
         Main.main(args);
     }
     
